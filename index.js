@@ -2,7 +2,14 @@ const express = require("express");
 const app = express();
 const prisma = require("./prismaClient");
 const cors = require("cors");
+
 app.use(cors());
+
+// web socket applied to app
+require("express-ws")(app);
+
+const { wsRouter } = require("./routers/ws");
+app.use("/", wsRouter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

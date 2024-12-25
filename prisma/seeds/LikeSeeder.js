@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 async function LikeSeeder() {
     console.log("Post like seeding started...");
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 5; i++) {
         await prisma.postLike.create({
             data: {
-                postId: 21,
+                postId: 20,
                 userId: faker.number.int({ min: 1, max: 10 }),
             },
         });
@@ -16,7 +16,5 @@ async function LikeSeeder() {
 
     console.log("Post like seeding done.");
 }
-
-LikeSeeder();
 
 module.exports = { LikeSeeder };
