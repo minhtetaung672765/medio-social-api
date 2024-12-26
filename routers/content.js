@@ -59,7 +59,21 @@ router.delete("/posts/:id", auth, isOwner("post"), async (req, res) => {
     res.sendStatus(204);
 });
 
-// do not use this api endpoint for now - as it will delete every comments with an specific id 
+// This endpoint is for testing
+router.get("/test/comments", async (req, res) => {
+    const data = await prisma.comment.findMany({
+        include: {
+            user: true,
+            post: true,
+            likes: true,
+        },
+        orderBy: { id: "desc" },
+        take: 20,
+    });
+    res.json(data);
+
+});
+
 router.delete("/comments/:id", auth, isOwner("comment"), async (req, res) => {
     const { id } = req.params;
     await prisma.comment.delete({
